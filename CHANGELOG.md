@@ -1,6 +1,18 @@
 # Change Log
 
-## 0.14.1 - Unreleased
+Changes for 0.15.1+ can now be found in https://github.com/typicode/json-server/releases
+
+## 0.15.0 - 2019-05-21
+
+* __Breaking__ Require Node 8
+* Upgrade dependencies
+* Reduce package size
+
+## 0.14.2 - 2018-12-26
+
+* Fix `db.getState is not a function`
+
+## 0.14.1 - 2018-12-25
 
 * Show error message if port is already used
 * Upgrade to [lowdb](https://github.com/typicode/lowdb) `1.0`

@@ -18,7 +18,10 @@ describe('Server', () => {
   beforeEach(() => {
     db = {}
 
-    db.posts = [{ id: 1, body: 'foo' }, { id: 2, body: 'bar' }]
+    db.posts = [
+      { id: 1, body: 'foo' },
+      { id: 2, body: 'bar' }
+    ]
 
     db.tags = [
       { id: 1, body: 'Technology' },
@@ -348,6 +351,13 @@ describe('Server', () => {
         .expect('Content-Type', /json/)
         .expect(db.comments.slice(1))
         .expect(200))
+
+    test('should accept multiple parameters', () =>
+      request(server)
+        .get('/comments?id_ne=1&id_ne=2')
+        .expect('Content-Type', /json/)
+        .expect(db.comments.slice(2))
+        .expect(200))
   })
 
   describe('GET /:resource?attr_like=', () => {
@@ -356,6 +366,12 @@ describe('Server', () => {
         .get('/tags?body_like=photo')
         .expect('Content-Type', /json/)
         .expect([db.tags[1], db.tags[2]])
+        .expect(200))
+    test('should accept multiple parameters', () =>
+      request(server)
+        .get('/tags?body_like=photo&body_like=tech')
+        .expect('Content-Type', /json/)
+        .expect(db.tags)
         .expect(200))
   })
 
@@ -690,18 +706,18 @@ describe('Server', () => {
           .expect(200))
     })
 
-    describe('GET /main.js', () => {
+    describe('GET /script.js', () => {
       test('should respond with js', () =>
         request(server)
-          .get('/main.js')
+          .get('/script.js')
           .expect('Content-Type', /javascript/)
           .expect(200))
     })
 
-    describe('GET /main.css', () => {
+    describe('GET /style.css', () => {
       test('should respond with css', () =>
         request(server)
-          .get('/main.css')
+          .get('/style.css')
           .expect('Content-Type', /css/)
           .expect(200))
     })
